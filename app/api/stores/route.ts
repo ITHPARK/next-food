@@ -39,6 +39,8 @@ import { StoreType } from '../../../types/types';
 // API 핸들러
 export async function GET(req: NextRequest) {
     try {  
+
+        //prisma supabase에 연결
         const prisma = new PrismaClient();
         const stores = await prisma.store.findMany({});
         console.log('Prisma Stores Data:', stores);

@@ -1,30 +1,38 @@
 
 import MapMarkerCmp from "../components/MapMarkerCmp";
 import { StoreType } from "../types/types";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {ReactQueryDevtools} from "react-query/devtools"
+import axios from "axios";
+
+const queryClient = new QueryClient();
 
 
 // 서버 측에서 데이터 패칭
 const fetchStores = async() => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stores`);
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/stores`);
   console.log('Fetch Response:', response); // 응답 확인
 
-  if (!response.ok) {
+  if (!response) {
       throw new Error('Fetching failed');
   }
-  return response.json();
+  return response.data;
+  
 }
 
 const Home = async() => {
 
   const stores: StoreType[] = await fetchStores();
-
-  console.log(stores)
   
 
   return (
-    <div>
-      <MapMarkerCmp stores={stores}/>
-    </div>
+    
+      <div>
+        <QueryClientProvider client={queryClient}>
+          <MapMarkerCmp stores={stores}/>
+        </QueryClientProvider>
+      </div>
+    
     
     
   );

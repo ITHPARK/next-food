@@ -15,7 +15,7 @@ const Makers = ({map, storeDatas, setcurrentStore}: MarkerProps) => {
 
 
                 //마커 이미지 커스텀
-                const imageSrc = store?.bizcnd_code_nm ? `/images/markers/${store?.bizcnd_code_nm}.png` :  `/images/markers/default.png`
+                const imageSrc = store?.category ? `/images/markers/${store?.category}.png` :  `/images/markers/default.png`
                 const imageSize = new window.kakao.maps.Size(40, 40);
                 const imageOption = {offset: new window.kakao.maps.Point(27, 69)};
 
@@ -26,8 +26,8 @@ const Makers = ({map, storeDatas, setcurrentStore}: MarkerProps) => {
                 )
                 
                 const markerposition = new window.kakao.maps.LatLng(
-                store?.y_dnts,
-                store?.x_cnts
+                store?.lat,
+                store?.lng
                 );
 
                 const marker = new window.kakao.maps.Marker({
@@ -39,7 +39,7 @@ const Makers = ({map, storeDatas, setcurrentStore}: MarkerProps) => {
                 marker.setMap(map);
 
                 //마커 커서가 호버되었을 때 마커 위에 표시할 인포윈도우
-                const content = `<div class="infowindow">${store?.upso_nm}</div>`; //인포윈도우에 표시될 내용
+                const content = `<div class="infowindow">${store?.name}</div>`; //인포윈도우에 표시될 내용
 
                 //커스텀 오버레이 생성
                 const customOverlay = new window.kakao.maps.CustomOverlay({
