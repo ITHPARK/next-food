@@ -1,11 +1,9 @@
 
 import MapMarkerCmp from "../components/MapMarkerCmp";
 import { StoreType } from "../types/types";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {ReactQueryDevtools} from "react-query/devtools"
 import axios from "axios";
 
-const queryClient = new QueryClient();
+
 
 
 // 서버 측에서 데이터 패칭
@@ -20,17 +18,12 @@ const fetchStores = async() => {
   
 }
 
-const Home = async() => {
-
-  const stores: StoreType[] = await fetchStores();
-  
+const Home = async() => {  
 
   return (
     
-      <div>
-        <QueryClientProvider client={queryClient}>
-          <MapMarkerCmp stores={stores}/>
-        </QueryClientProvider>
+      <div className="pt-[52px]"> 
+        <MapMarkerCmp/>
       </div>
     
     

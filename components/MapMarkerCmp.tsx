@@ -5,15 +5,25 @@ import Map from "./Map";
 import Markers from "./Markers";
 import StoreBox from "./StoreBox";
 import { StoreType } from '../types/types';
+import axios from "axios";
+import { useQuery } from '@tanstack/react-query';
+
+//컴포넌트가 생성 될때 마다 함수가 새로 생성되는걸 방지해서 밖에 작성
+const fetchStores = async () => {
+  const { data } = await axios.get("/api/stores");
+  return data;
+};
 
 
-
-
-
-const MapMarkerCmp = ({stores}: {stores: StoreType[]}) => {
+const MapMarkerCmp = () => {
 
     const [map, setMap] = useState(null);
     const [currentStore, setcurrentStore] = useState(null);
+
+    const { data: stores, error, isLoading } = useQuery({
+      queryKey: ["stores"],
+      queryFn: fetchStores,
+    });
 
     // const storeDatas = stores.map(item => ({
     //     id: id || '',  // tel_no가 null이면 빈 문자열로 설정
@@ -27,9 +37,8 @@ const MapMarkerCmp = ({stores}: {stores: StoreType[]}) => {
     // }));
 
 
-    useEffect(() => {
-       
-    }, [currentStore, setcurrentStore])
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>다시 시도해주세요</div>;
 
 
   return (

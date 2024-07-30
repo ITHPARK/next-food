@@ -43,9 +43,9 @@ const StoreListPage = async() => {
                           {store?.address}
                         </div>
                         <div className='mt-1 text-xs truncate font-semibold leading-5 text-gray-500'>
-                          {store?.phone || "번호 정보 없음"} |
-                          {store?.foodCertifyName} |
-                          {store?.category}
+                          {store?.phone || "번호 정보 없음"} | &nbsp;
+                          { store?.foodCertifyName} | &nbsp;
+                          { store?.category}
                         </div>
                     </div>
                 </li>

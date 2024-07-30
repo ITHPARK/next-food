@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "../components/Navbar"
+import Provider from "./utils/Provider";
 
 
 export const metadata = {
@@ -13,8 +14,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <body>
-        <Navbar />
-        {children}
+        <Provider>
+          <Navbar/>
+          {children}
+        </Provider>
       </body>
     </html>
   );
