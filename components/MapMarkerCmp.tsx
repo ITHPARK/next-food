@@ -7,6 +7,7 @@ import StoreBox from "./StoreBox";
 import { StoreType } from '../types/types';
 import axios from "axios";
 import { useQuery } from '@tanstack/react-query';
+import Loading from "./Loading";
 
 //컴포넌트가 생성 될때 마다 함수가 새로 생성되는걸 방지해서 밖에 작성
 const fetchStores = async () => {
@@ -37,8 +38,8 @@ const MapMarkerCmp = () => {
     // }));
 
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>다시 시도해주세요</div>;
+  if (isLoading) return <Loading/>;
+  if (error) return <div className='w-full h-screen mx-auto pt-[30%] text-red-500 text-center font-semibold'>다시 시도해주세요</div>;
 
 
   return (

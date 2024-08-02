@@ -19,7 +19,7 @@ const Navbar = () => {
           nextmap
         </Link>
         <div className="navbar__list">
-          <Link href="/stores" className="navbar__list--item">
+          <Link href="/stores?page=1" className="navbar__list--item">
             맛집 목록
           </Link>
           <Link href="/stores/new" className="navbar__list--item">
@@ -57,7 +57,7 @@ const Navbar = () => {
         <div className="navbar--mobile">
           <div className="navbar__list--mobile">
             <Link
-              href="/stores"
+              href="/stores?page=1"
               className="navbar__list--item--mobile"
               onClick={() => setIsOpen(false)}
             >

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, ReactNode } from "react";
 
 export interface StoreType {
   id: number;
@@ -25,4 +25,18 @@ export interface MarkerProps {
 export interface StoreBoxProps {
   store: any;
   setStore: Dispatch<SetStateAction<any>>;
+}
+
+export interface LayoutProps {
+  //children은 ReactNode임
+  children: ReactNode;
+}
+
+export interface StoreApiResponse {
+  page?:number;
+  data?: StoreType[];
+  totalPage?: number;
+  totalCount?: number;
+
+
 }

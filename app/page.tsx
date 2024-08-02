@@ -9,7 +9,6 @@ import axios from "axios";
 // 서버 측에서 데이터 패칭
 const fetchStores = async() => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/stores`);
-  console.log('Fetch Response:', response); // 응답 확인
 
   if (!response) {
       throw new Error('Fetching failed');

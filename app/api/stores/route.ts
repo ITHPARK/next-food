@@ -2,6 +2,7 @@
 
 import { PrismaClient } from '@prisma/client';
 
+import {StoreApiResponse} from "../../../types/types"
 
 //api응답 생성 모듈
 import { NextResponse, NextRequest } from 'next/server';
@@ -39,13 +40,42 @@ import { StoreType } from '../../../types/types';
 // API 핸들러
 export async function GET(req: NextRequest) {
     try {  
-
         //prisma supabase에 연결
         const prisma = new PrismaClient();
-        const stores = await prisma.store.findMany({});
-        console.log('Prisma Stores Data:', stores);
         
-        return NextResponse.json(stores);
+        const page = req.nextUrl.searchParams.get('page'); //쿼리 파라미터 처리
+
+        
+        if(page) {
+
+            const pageSize = 10;  // 페이지당 항목 수
+            const pageNum = parseInt(page, 10); //string 문자열을 10진 정수로 변환
+            const count = await prisma.store.count();
+    
+            const stores = await prisma.store.findMany({
+                orderBy: {id: "asc"}, //id 순서대로 정렬
+                skip: (pageNum - 1)  * pageSize, // 쿼리 결과에서 건너뛸 레코드 수 3페이지면 20개의 레코드를 스킵 즉 2페이지까지 스킵한다는 소리.
+                take: 10,
+            });
+    
+            const res: StoreApiResponse  = {
+                page: parseInt(page),
+                data: stores,
+                totalCount: count,
+                totalPage: Math.ceil(count / pageSize)
+            }
+
+            
+            return NextResponse.json(res);     
+
+        }else {
+            const stores : StoreType[] = await prisma.store.findMany({
+                orderBy: {id: 'asc'},
+            })  ;   
+            
+            return NextResponse.json(stores);     
+        }
+       
 
     } catch (error) {
         console.error(error);

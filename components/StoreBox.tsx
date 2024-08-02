@@ -28,8 +28,8 @@ const StoreBox = ({store, setStore}: StoreBoxProps) => {
                         <div className='flex gap-4 items-center'>
                             <Image src={store?.category ? `/images/markers/${store?.category}.png`: `/images/markers/default.png`} width={40} height={40} alt="image"></Image>
                             <div>
-                                <h2 className='font-semibold'>{store?.upso_nm}</h2>
-                                <p className='text-sm'>{store?.cob_code_nm}</p>
+                                <h2 className='font-semibold'>{store?.name}</h2>
+                                <p className='text-sm'>{store?.storeType}</p>
                             </div>
                         </div>
                         <button type='button' onClick={() => {setStore(null)}}><AiOutlineClose fill="#141414" size="20"/></button>
