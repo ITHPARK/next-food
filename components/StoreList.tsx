@@ -12,60 +12,50 @@ import { useSearchParams } from 'next/navigation';
 import useIntersectionObserver from "../hooks/useIntersectionObserver";
 
 
-//컴포넌트가 생성 될때 마다 함수가 새로 생성되는걸 방지해서 밖에 작성
-const fetchStores = async (page: string) => {
-  const { data } = await axios.get<StoreApiResponse>(`/api/stores?page=${page}`);
-  return data;
-};
+
 
 const StoreList = () => {
 
     // const [storeData, setStoreData] = useState<StoreType[]>([]);
     // const [pagenation, setPagenation] = useState<number[]>([]);
 
-    const searchParams = useSearchParams(); // 쿼리 파라미터를 가져온다
-    const page = searchParams.get('page') || "1";
 
     // 페이지 파라미터를 useMemo로 메모이제이션
-    //page값이 null이면 1로 설정
-    const pageParam = useMemo(() => searchParams.get('page') || "1", [searchParams]);
     const ref = useRef<HTMLDivElement | null>(null);
     const pageRef = useIntersectionObserver(ref, {});
     const isPageEnd = !!pageRef?.isIntersecting;
-    
 
-    const { data: stores, error, isLoading } = useQuery({
-        queryKey: ["stores", pageParam], //queryKey 배열에 page 추가. page값이 변경될 때 마다 쿼리 재실행
-        queryFn: () => fetchStores(pageParam),
-    });
 
 
     const fetchData = async ({pageParam = 1}) => {
       const {data} = await axios.get(`/api/stores?page=` + pageParam, {
         params: {
           limit: 10,
-          page: pageParam,
+          page: pageParam, //요청할 페이지 번호
         }
       });
-
+     
       return data;
     }
 
     const {data, isFetching, fetchNextPage, isFetchingNextPage, hasNextPage} = useInfiniteQuery({
-      queryKey: ['stores'],
-      queryFn: fetchData,
-      initialPageParam: 1,
-      getNextPageParam: (lastPage: any) => {
+      queryKey: ['stores', 1 ], //쿼리를 고유하게 식별하는 키
+      queryFn: fetchData, //데이터를 가져오는 함수
+      initialPageParam: 1, //initialPageParam: 첫 페이지의 초기 파라미터를 설정
+      getNextPageParam: (lastPage: any) => { //lastPage에서 다음 페이지 파라미터를 계산
+        console.log(lastPage)
         return lastPage && lastPage.data && lastPage.data.length > 0 ? lastPage.page + 1 : undefined;
       },
     });
 
 
+    //페이지의 끝에 도달하면 fetchNextPage를 호출
     useEffect(() => {
-      if(isPageEnd) {
+      if (isPageEnd) {
         fetchNextPage();
       }
-    },[fetchNextPage, isPageEnd])
+    }, [fetchNextPage, isPageEnd]);
+
 
 
     // useEffect 훅을 사용하여 stores 데이터가 업데이트될 때 상태를 업데이트
@@ -77,10 +67,7 @@ const StoreList = () => {
     //     // }
     // }, [data]);
 
-    
 
-
-  if(isLoading) return <Loading/>;
 
   return (
     <>
