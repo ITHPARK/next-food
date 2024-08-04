@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar"
 import Provider from "./utils/Provider";
 import { LayoutProps } from "../types/types"
+import AuthProvider from "./utils/AuthProvider"
 
 
 export const metadata = {
@@ -16,8 +17,10 @@ export default function Layout({ children }: LayoutProps) {
     <html>
       <body>
         <Provider>
-          <Navbar />
-          {children}
+          <AuthProvider>  
+            <Navbar />
+            {children}
+          </AuthProvider>
         </Provider>
       </body>
     </html>

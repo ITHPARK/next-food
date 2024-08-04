@@ -43,7 +43,6 @@ const StoreList = () => {
       queryFn: fetchData, //데이터를 가져오는 함수
       initialPageParam: 1, //initialPageParam: 첫 페이지의 초기 파라미터를 설정
       getNextPageParam: (lastPage: any) => { //lastPage에서 다음 페이지 파라미터를 계산
-        console.log(lastPage)
         return lastPage && lastPage.data && lastPage.data.length > 0 ? lastPage.page + 1 : undefined;
       },
     });
@@ -55,6 +54,11 @@ const StoreList = () => {
         fetchNextPage();
       }
     }, [fetchNextPage, isPageEnd]);
+
+    useEffect(() => {
+        console.log(data);
+    }, [data])
+    
 
 
 

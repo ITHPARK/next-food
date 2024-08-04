@@ -11,7 +11,6 @@ const StoreListPage = async() => {
   return (
     <div className='px-4 md:max-w-5xl mx-auto pt-[52px] pb-8'>
         <StoreList></StoreList> 
-        
     </div>
   )
 }
