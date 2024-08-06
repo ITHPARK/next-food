@@ -11,8 +11,13 @@ import Loading from "./Loading";
 
 //컴포넌트가 생성 될때 마다 함수가 새로 생성되는걸 방지해서 밖에 작성
 const fetchStores = async () => {
-  const { data } = await axios.get("/api/stores");
-  return data;
+  try {
+    const { data } = await axios.get("/api/stores");
+    return data;
+  } catch (error) {
+    console.error('Error fetching stores:', error);  // 오류 로그 추가
+    throw error;
+  }
 };
 
 

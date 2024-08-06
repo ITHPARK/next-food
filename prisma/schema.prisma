@@ -10,7 +10,7 @@ datasource db {
 model User {
   id    Int    @id @default(autoincrement())
   email String @unique
-  name  String
+  name  String?
   emailVerified DateTime?
   image String?
   accoutns Account[]
@@ -37,6 +37,7 @@ model Account {
   provider           String
   providerAccountId  String  @map("provider_account_id")
   refresh_token      String? @db.Text
+  refresh_token_expires_in Int?
   access_token       String? @db.Text
   expires_at         Int?
   token_type         String?
