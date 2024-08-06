@@ -10,6 +10,11 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const handler = NextAuth({
+  session: {
+    strategy: "jwt" as const, 
+    maxAge: 60 * 60 * 24, //초단위로 24시간 유지
+    updateAge: 60* 60 * 2, //초단위로 2시간 유지
+  },  
   //provider를 추가하여 sso 인증을 사용하도록 설정
   providers: [
     GoogleProvider({
@@ -30,15 +35,7 @@ const handler = NextAuth({
   pages: {
     signIn: "/users/login",
   },
-  debug: true, // 디버깅 활성화
-  events: {
-    signIn: async (message) => {
-      console.log("User signed in:", message);
-    },
-    signOut: async (message) => {
-      console.log("User signed out:", message);
-    },
-  },
+
 });
 
 //GET과 POST HTTP 메서드로 내보낸다

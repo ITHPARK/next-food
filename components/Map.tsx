@@ -13,10 +13,12 @@ declare global {
     }
 };
 
-const Map = ({setMap}: MapProps) => {
+const Map = ({setMap, lat, lng, zoom}: MapProps) => {
 
     const DEFAULT_LAT = 37.566826;
     const DEFAULT_LNG = 126.978656;
+
+    const DEFAULT_ZOOM = 3;
 
 
   const loadKakaoMap = () => {
@@ -26,8 +28,8 @@ const Map = ({setMap}: MapProps) => {
       // v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
       const mapContainer = document.getElementById("map");
       const mapOption = {
-        center: new window.kakao.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG), // 지도 중심좌표
-        level: 3, // 지도의 확대 레벨
+        center: new window.kakao.maps.LatLng(lat ?? DEFAULT_LAT, lng ??  DEFAULT_LNG), // 지도 중심좌표
+        level: zoom ?? DEFAULT_ZOOM, // 지도의 확대 레벨
       }
       //맵 생성
       const map = new window.kakao.maps.Map(mapContainer, mapOption);

@@ -1,16 +1,16 @@
 "use client"
 
 import React, {useEffect, useCallback} from 'react'
-import {MarkersProps} from "../types/types";
+import {MarkerProps} from "../types/types";
 
-const Makers = ({map, storeDatas = [], setcurrentStore}: MarkersProps) => { // 기본값 빈 배열 설정
+const Maker = ({map, store}: MarkerProps) => { // 기본값 빈 배열 설정
 
-    const loadKakaoMarkers = useCallback(() => {
+    const loadKakaoMarker = useCallback(() => {
 
-        if(map && Array.isArray(storeDatas)) { // 배열인지 확인
-            //식당 데이터 마커 띄우기 
-            storeDatas.map((store: any) => {
-                //마커 이미지 커스텀
+        if(map && store) { // 배열인지 확인
+       
+           
+                //현재 선택한 식당 데이터 한개 가져오기
                 const imageSrc = store?.category ? `/images/markers/${store?.category}.png` :  `/images/markers/default.png`
                 const imageSize = new window.kakao.maps.Size(40, 40);
                 const imageOption = {offset: new window.kakao.maps.Point(27, 69)};
@@ -55,22 +55,17 @@ const Makers = ({map, storeDatas = [], setcurrentStore}: MarkersProps) => { // �
                     customOverlay.setMap(null);
                 });
 
-                //선택한 가게 저장
-                window.kakao.maps.event.addListener(marker, "click", function(){
-                    setcurrentStore(store)
-                })
-            });
         }
         //map, storeDatas, setcurrentStore 값이 변경될 때 새로운 콜백을 실행
-    },[map, storeDatas, setcurrentStore])
+    },[map, store,])
 
     useEffect(() => {
-        loadKakaoMarkers();
-    }, [map, loadKakaoMarkers])
+        loadKakaoMarker();
+    }, [map, loadKakaoMarker])
 
     return (
         <></>
     )
 }
 
-export default Makers
+export default Maker

@@ -9,7 +9,7 @@ const Home = async() => {
 
   return (
     
-      <div className="pt-[52px]"> 
+      <div> 
         <MapMarkerCmp/>
       </div>
     

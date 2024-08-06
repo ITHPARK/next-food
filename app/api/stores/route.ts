@@ -42,8 +42,12 @@ export async function GET(req: NextRequest) {
     try {  
         //prisma supabase에 연결
         const prisma = new PrismaClient();
-        
+
+        //req 요청 쿼리를 받아온다.
+        const id = req.nextUrl.searchParams.get("id");
         const page = req.nextUrl.searchParams.get('page'); //쿼리 파라미터 처리
+        const q = req.nextUrl.searchParams.get('q');
+        const district = req.nextUrl.searchParams.get('district');
 
         
         if(page) {
@@ -54,6 +58,10 @@ export async function GET(req: NextRequest) {
     
             const stores = await prisma.store.findMany({
                 orderBy: {id: "asc"}, //id 순서대로 정렬
+                where: {
+                    name: q ? {contains: q} : {}, //q가 있으면 q가 포함된 모든 레코드 노출
+                    address: district ? {contains: district} : {}//district가 있으면 district가 포함된 모든 레코드 노출
+                },
                 skip: (pageNum - 1)  * pageSize, // 쿼리 결과에서 건너뛸 레코드 수 3페이지면 20개의 레코드를 스킵 즉 2페이지까지 스킵한다는 소리.
                 take: 10,
             });
@@ -71,9 +79,10 @@ export async function GET(req: NextRequest) {
         }else {
             const stores : StoreType[] = await prisma.store.findMany({
                 orderBy: {id: 'asc'},
+                where: {id: id ? parseInt(id): {}}, //where문이 있으면 실행 아니면 무시
             })  ;   
             
-            return NextResponse.json(stores);     
+            return NextResponse.json(id ? stores[0] : stores);     
         }
        
 

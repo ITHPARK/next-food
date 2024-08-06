@@ -1,6 +1,6 @@
 import "./globals.css";
 import Navbar from "../components/Navbar"
-import Provider from "./utils/Provider";
+import QueryProvider from "./utils/QueryProvider";
 import { LayoutProps } from "../types/types"
 import AuthProvider from "./utils/AuthProvider"
 
@@ -16,12 +16,14 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <html>
       <body>
-        <Provider>
+        <QueryProvider>
           <AuthProvider>  
             <Navbar />
-            {children}
+            <div className="pt-[52px]">
+              {children}
+            </div>
           </AuthProvider>
-        </Provider>
+        </QueryProvider>
       </body>
     </html>
   );

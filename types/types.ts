@@ -14,12 +14,20 @@ export interface StoreType {
 
 export interface MapProps {
   setMap: Dispatch<SetStateAction<any>>;
+  lat?: string | null
+  lng?: string | null
+  zoom?: number
 }
 
-export interface MarkerProps {
+export interface MarkersProps {
   map: any
   storeDatas: StoreType[];
   setcurrentStore: Dispatch<SetStateAction<any>>;
+}
+
+export  interface MarkerProps {
+  map: any
+  store: StoreType
 }
 
 export interface StoreBoxProps {
@@ -37,6 +45,9 @@ export interface StoreApiResponse {
   data?: StoreType[];
   totalPage?: number;
   totalCount?: number;
+}
 
-
+export interface SearchFilterProps {
+  setQ: Dispatch<SetStateAction<string | null>>;
+  setDistrict: Dispatch<SetStateAction<string | null>>;
 }

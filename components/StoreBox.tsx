@@ -10,10 +10,12 @@ import {
     AiOutlinePhone,
 } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
+import { useRouter } from 'next/navigation';
 
 const StoreBox = ({store, setStore}: StoreBoxProps) => {
 
     const [storeInfo, setSotreInfo] = useState();
+    const router = useRouter();
 
     useEffect(() => {
         setSotreInfo(store);
@@ -54,7 +56,7 @@ const StoreBox = ({store, setStore}: StoreBoxProps) => {
                         {store?.category || "분류 없음"}
                     </div>
                 </div>
-                <button type='button' onClick={() => window.alert("상세보기 작업")} className='w-full bg-blue-700 hover:bg-blue-500 focus:bg-blue-500 py-3 text-white font-semibold rounded-b-lg'>상세보기</button>
+                <button type='button' onClick={() => router.push(`/stores/${store.id}`)} className='w-full bg-blue-700 hover:bg-blue-500 focus:bg-blue-500 py-3 text-white font-semibold rounded-b-lg'>상세보기</button>
             </>
         )}
     </div>

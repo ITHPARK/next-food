@@ -11,7 +11,6 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data, status } = useSession();
 
-  console.log(data, status);
   return (
     <>
       <div className="navbar">
@@ -81,7 +80,7 @@ const Navbar = () => {
             >
               마이페이지
             </Link>
-            {/* {status === "authenticated" ? (
+            {status === "authenticated" ? (
               <button
                 type="button"
                 onClick={() => {
@@ -100,7 +99,7 @@ const Navbar = () => {
               >
                 로그인
               </Link>
-            )} */}
+            )}
           </div>
         </div>
       )}

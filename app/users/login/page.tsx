@@ -20,7 +20,7 @@ const LoginPage = () => {
   }, [router, status]);
   
   return (
-    <div className='pt-[52px] flex flex-col justify-center px-6 lg:px-8 h-[60vh]'>
+    <div className=' flex flex-col justify-center px-6 lg:px-8 h-[60vh]'>
       <div className='mx-auto w-full max-w-sm'>
         <h1 className='text-blue-800 text-center text-2xl font-semibold italic'>Nextmap</h1>
         <div className='text-center mt-6 text-2xl font-bold text-gray-600'>SNS 계정으로 로그인해주세요</div>

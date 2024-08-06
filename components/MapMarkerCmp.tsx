@@ -26,7 +26,7 @@ const MapMarkerCmp = () => {
     const [map, setMap] = useState(null);
     const [currentStore, setcurrentStore] = useState(null);
 
-    const { data: stores, error, isLoading } = useQuery({
+    const { data: stores, isError, isLoading } = useQuery({
       queryKey: ["stores"],
       queryFn: fetchStores,
     });
@@ -44,7 +44,7 @@ const MapMarkerCmp = () => {
 
 
   if (isLoading) return <Loading/>;
-  if (error) return <div className='w-full h-screen mx-auto pt-[30%] text-red-500 text-center font-semibold'>다시 시도해주세요</div>;
+  if (isError) return <div className='w-full h-screen mx-auto pt-[30%] text-red-500 text-center font-semibold'>다시 시도해주세요</div>;
 
 
   return (

@@ -2,14 +2,12 @@
 
 import React , {useState, useEffect, useMemo, useRef} from 'react'
 import axios from "axios";
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import {StoreType} from '../types/types';
 import Image from 'next/image';
 import Loading from '../components/Loading'
-import {StoreApiResponse} from "../types/types";
-import Link from "next/link"
-import { useSearchParams } from 'next/navigation';
 import useIntersectionObserver from "../hooks/useIntersectionObserver";
+import SearchFilter from "./SearchFilter";
 
 
 
@@ -25,6 +23,13 @@ const StoreList = () => {
     const pageRef = useIntersectionObserver(ref, {});
     const isPageEnd = !!pageRef?.isIntersecting;
 
+    const [q, setQ] = useState<string | null>(null);
+    const [district, setDistrict] = useState<string | null>(null)
+
+    const searchParam ={
+      q: q,
+      district: district
+    }
 
 
     const fetchData = async ({pageParam = 1}) => {
@@ -32,14 +37,15 @@ const StoreList = () => {
         params: {
           limit: 10,
           page: pageParam, //요청할 페이지 번호
+          ...searchParam//데이터 객체와 병합
         }
       });
-     
+    
       return data;
     }
 
     const {data, isFetching, fetchNextPage, isFetchingNextPage, hasNextPage} = useInfiniteQuery({
-      queryKey: ['stores', 1 ], //쿼리를 고유하게 식별하는 키
+      queryKey: ['stores', searchParam ], //쿼리를 고유하게 식별하는 키. searchParam가 변경 될 때마다 쿼리 다시 실행 
       queryFn: fetchData, //데이터를 가져오는 함수
       initialPageParam: 1, //initialPageParam: 첫 페이지의 초기 파라미터를 설정
       getNextPageParam: (lastPage: any) => { //lastPage에서 다음 페이지 파라미터를 계산
@@ -56,11 +62,9 @@ const StoreList = () => {
     }, [fetchNextPage, isPageEnd]);
 
     useEffect(() => {
-        console.log(data);
-    }, [data])
+        console.log(q, district);
+    }, [q, district])
     
-
-
 
     // useEffect 훅을 사용하여 stores 데이터가 업데이트될 때 상태를 업데이트
     // useEffect(() => {
@@ -75,6 +79,7 @@ const StoreList = () => {
 
   return (
     <>
+      <SearchFilter setQ={setQ} setDistrict={setDistrict}/>
       <ul>
         {data?.pages.map((store, index) => (
           store?.data.map((item: StoreType, ) => {
