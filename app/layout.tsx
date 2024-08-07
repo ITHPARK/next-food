@@ -1,8 +1,10 @@
 import "./globals.css";
 import Navbar from "../components/Navbar"
-import QueryProvider from "./utils/QueryProvider";
 import { LayoutProps } from "../types/types"
+import QueryProvider from "./utils/QueryProvider";
 import AuthProvider from "./utils/AuthProvider"
+import RecoilProvider from "./utils/RecoilProvider"
+
 
 
 export const metadata = {
@@ -16,14 +18,16 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <html>
       <body>
-        <QueryProvider>
-          <AuthProvider>  
-            <Navbar />
-            <div className="pt-[52px]">
-              {children}
-            </div>
-          </AuthProvider>
-        </QueryProvider>
+        <RecoilProvider>  
+          <QueryProvider>
+            <AuthProvider>  
+              <Navbar />
+              <div className="pt-[52px]">
+                {children}
+              </div>
+            </AuthProvider>
+          </QueryProvider>
+        </RecoilProvider>
       </body>
     </html>
   );

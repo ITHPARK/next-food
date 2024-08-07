@@ -8,6 +8,9 @@ import Image from 'next/image';
 import Loading from '../components/Loading'
 import useIntersectionObserver from "../hooks/useIntersectionObserver";
 import SearchFilter from "./SearchFilter";
+import {useRecoilValue} from "recoil";
+import {searchState} from "../atom"
+import { useRouter } from 'next/navigation';
 
 
 
@@ -22,13 +25,15 @@ const StoreList = () => {
     const ref = useRef<HTMLDivElement | null>(null);
     const pageRef = useIntersectionObserver(ref, {});
     const isPageEnd = !!pageRef?.isIntersecting;
+    const router = useRouter();
+    const searchvalue = useRecoilValue(searchState);
 
-    const [q, setQ] = useState<string | null>(null);
-    const [district, setDistrict] = useState<string | null>(null)
+
+
 
     const searchParam ={
-      q: q,
-      district: district
+      q: searchvalue?.q,
+      district: searchvalue?.district
     }
 
 
@@ -61,11 +66,6 @@ const StoreList = () => {
       }
     }, [fetchNextPage, isPageEnd]);
 
-    useEffect(() => {
-        console.log(q, district);
-    }, [q, district])
-    
-
     // useEffect 훅을 사용하여 stores 데이터가 업데이트될 때 상태를 업데이트
     // useEffect(() => {
     //     // if (stores?.totalPage) {
@@ -79,12 +79,12 @@ const StoreList = () => {
 
   return (
     <>
-      <SearchFilter setQ={setQ} setDistrict={setDistrict}/>
+      <SearchFilter/>
       <ul>
         {data?.pages.map((store, index) => (
           store?.data.map((item: StoreType, ) => {
             return(
-              <li key={`list${item.id}`} className='flex justify-between gap-x-6 py-5'>
+              <li key={`list${item.id}`} className='flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-50' onClick={() => router.push(`/stores/${item.id}`)}>
                   <div className='flex gap-x-4'>
                     <Image 
                       src={item?.category? `/images/markers/${item?.category}.png`: "/images/markers/default.png"} 

@@ -2,8 +2,14 @@
 
 import React, {useEffect, useCallback} from 'react'
 import {MarkersProps} from "../types/types";
+import {useRecoilValue, useRecoilState} from "recoil"
+import {mapState, currentStoreState, locationState} from "../atom"
 
-const Makers = ({map, storeDatas = [], setcurrentStore}: MarkersProps) => { // 기본값 빈 배열 설정
+const Makers = ({ storeDatas = []}: MarkersProps) => { // 기본값 빈 배열 설정
+
+    const map = useRecoilValue(mapState);
+    const [currentStore, setCurrentStore] = useRecoilState(currentStoreState);
+    const [location, setLocation] = useRecoilState(locationState)
 
     const loadKakaoMarkers = useCallback(() => {
 
@@ -57,12 +63,18 @@ const Makers = ({map, storeDatas = [], setcurrentStore}: MarkersProps) => { // �
 
                 //선택한 가게 저장
                 window.kakao.maps.event.addListener(marker, "click", function(){
-                    setcurrentStore(store)
+                    setCurrentStore(store)
+                    setLocation({
+                        ...location,
+                        lat: store.lat,
+                        lng: store.lng,
+                        
+                    })
                 })
             });
         }
         //map, storeDatas, setcurrentStore 값이 변경될 때 새로운 콜백을 실행
-    },[map, storeDatas, setcurrentStore])
+    },[map, storeDatas, setCurrentStore])
 
     useEffect(() => {
         loadKakaoMarkers();

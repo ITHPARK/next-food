@@ -1,6 +1,6 @@
 // app/api/stores/route.ts
 
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../../db";
 
 import {StoreApiResponse} from "../../../types/types"
 
@@ -40,8 +40,6 @@ import { StoreType } from '../../../types/types';
 // API 핸들러
 export async function GET(req: NextRequest) {
     try {  
-        //prisma supabase에 연결
-        const prisma = new PrismaClient();
 
         //req 요청 쿼리를 받아온다.
         const id = req.nextUrl.searchParams.get("id");

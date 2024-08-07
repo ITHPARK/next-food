@@ -2,8 +2,12 @@
 
 import React, {useEffect, useCallback} from 'react'
 import {MarkerProps} from "../types/types";
+import {useRecoilValue} from "recoil"
+import {mapState} from "../atom"
 
-const Maker = ({map, store}: MarkerProps) => { // 기본값 빈 배열 설정
+const Maker = ({ store}: MarkerProps) => { // 기본값 빈 배열 설정
+
+    const map = useRecoilValue(mapState);
 
     const loadKakaoMarker = useCallback(() => {
 

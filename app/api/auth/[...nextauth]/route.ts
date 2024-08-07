@@ -3,11 +3,11 @@ import GoogleProvider from "next-auth/providers/google"
 import NaverProvider from "next-auth/providers/naver"
 import KakaoProvider from "next-auth/providers/kakao"
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../../../db";
 // 필요에 따라 Provider를 추가할 수 있습니다.
 
 
-const prisma = new PrismaClient();
+
 
 const handler = NextAuth({
   session: {

@@ -49,9 +49,9 @@ const MapMarkerCmp = () => {
 
   return (
     <div>
-        <Map setMap={setMap}/>
-        <Markers map={map} storeDatas={stores} setcurrentStore={setcurrentStore}/>
-        <StoreBox store={currentStore} setStore = {setcurrentStore}/>
+        <Map/>
+        <Markers storeDatas={stores} setcurrentStore={setcurrentStore}/>
+        <StoreBox/>
     </div>
   )
 }
