@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, {NextAuthOptions} from 'next-auth';
 import GoogleProvider from "next-auth/providers/google"
 import NaverProvider from "next-auth/providers/naver"
 import KakaoProvider from "next-auth/providers/kakao"
@@ -9,7 +9,7 @@ import prisma from "../../../../db";
 
 
 
-const handler = NextAuth({
+export const authOptions:NextAuthOptions = {
   session: {
     strategy: "jwt" as const, 
     maxAge: 60 * 60 * 24, //초단위로 24시간 유지
@@ -35,8 +35,27 @@ const handler = NextAuth({
   pages: {
     signIn: "/users/login",
   },
+  callbacks: {
+    session: ({session, token}) => ({
+      ...session,
+      user: { //현재 세션 데이터를 받아서 객체를 확장시키고 token.sub(사용자의 id)를 session.user.id에 추가한다.
+        ...session.user,
+        id: token.sub,
+      }
+    }),
+    jwt: async ({user, token}) => {
+      if(user) { //처음 로그인 할 때 token.sub에 user.id를 저장한다.
+        token.sub = user.id
+      }
 
-});
+      return token;
+    },
+
+  },
+
+};
+
+const handler = NextAuth(authOptions)
 
 //GET과 POST HTTP 메서드로 내보낸다
 export { handler as GET, handler as POST };

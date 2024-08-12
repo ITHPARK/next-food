@@ -5,6 +5,9 @@ import QueryProvider from "./utils/QueryProvider";
 import AuthProvider from "./utils/AuthProvider"
 import RecoilProvider from "./utils/RecoilProvider"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export const metadata = {
@@ -24,6 +27,7 @@ export default function Layout({ children }: LayoutProps) {
               <Navbar />
               <div className="pt-[52px]">
                 {children}
+                <ToastContainer/>
               </div>
             </AuthProvider>
           </QueryProvider>

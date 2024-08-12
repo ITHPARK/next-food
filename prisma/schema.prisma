@@ -8,25 +8,27 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String?
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
   emailVerified DateTime?
-  image String?
-  accoutns Account[]
-  sessions Session[]
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  likes         Like[]
 }
 
 model Store {
-  id              Int     @id @default(autoincrement())
-  phone           String? // tel_no
-  address         String? // rdn_code_nm
-  lat             String // y_dnts
-  lng             String // x-cnts
-  name            String? //upso_nm
-  category        String? // bizcnd_code_nm
-  storeType       String? // cob_code_nm
+  id        Int      @id @default(autoincrement())
+  phone     String?  // tel_no
+  address   String?  // rdn_code_nm
+  lat       String?  // y_dnts
+  lng       String?  // x_cnts
+  name      String?  // upso_nm
+  category  String?  // bizcnd_code_nm
+  storeType String?  // cob_code_nm
   foodCertifyName String? // crtfc_gbn_nm
+  likes         Like[]
 }
 
 
@@ -69,4 +71,14 @@ model VerificationToken {
  
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  storeId   Int
+  userId    Int
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, storeId])
 }

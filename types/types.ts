@@ -1,15 +1,41 @@
 import { Dispatch, SetStateAction, ReactNode } from "react";
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
 export interface StoreType {
   id: number;
   phone: string | null;
   address: string | null;
-  lat: string;
-  lng: string;
+  lat: string | null;
+  lng: string | null;
   name: string | null;
   category: string | null;
   storeType: string | null;
   foodCertifyName: string | null;
+  likes?: LikeInterface[]
+}
+
+export interface LikeInterface {
+  id: number;
+  storeId: number;
+  userId: number;
+  store?: StoreType;
+}
+
+export interface LikeApiResponse {
+  id: number;
+  storeId: number,
+  userId: number,
+  store?: StoreType,
+  body: string,
+  user?: UserType;
+  createAt: Date;
+}
+
+interface UserType {
+  id: number;
+  email: string
+  name?: string | null
+  image?: string | null;
 }
 
 export interface MapProps {
@@ -48,4 +74,14 @@ export interface LocationType {
 export interface SearchType {
   q?: string
   district?: string
+}
+
+export interface AddressProps {
+  setValue: UseFormSetValue<StoreType>
+  register: UseFormRegister<StoreType>
+  errors: FieldErrors<StoreType>
+}
+
+export interface LikeProps {
+  storeId: number;
 }
