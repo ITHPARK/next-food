@@ -1,11 +1,8 @@
-// app/api/stores/route.ts
 
 import prisma from "../../../db";
 
 //api응답 생성 모듈
 import { NextResponse, NextRequest } from 'next/server';
-import { StoreType } from '../../../types/types';
-import axios from "axios";
 import {getServerSession} from "next-auth";
 import {authOptions} from "../auth/[...nextauth]/route";
 
@@ -79,4 +76,55 @@ export const POST = async(req: NextRequest) => {
         return NextResponse.json(error, {status: 500});
     }
 }
+
+
+
+
+export const GET = async (req: NextRequest) => {
+    try {
+        const session = await getServerSession(authOptions);
+    
+        if (!session?.user) {
+            return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+        }
+    
+        const { searchParams } = new URL(req.url);
+    
+        // page와 limit을 숫자로 변환
+        const page: number = parseInt(searchParams.get('page') || '1', 10);
+        const limit: number = parseInt(searchParams.get('limit') || '10', 10);
+    
+        // count 값을 가져오면서 await 사용
+        const count: number = await prisma.like.count({
+            where: {
+            userId: session.user.id,
+            },
+        });
+    
+        // page와 limit을 바탕으로 skip 값 계산
+        const skipPage = page > 0 ? (page - 1) * limit : 0;
+    
+        const likes = await prisma.like.findMany({
+            orderBy: { createdAt: 'desc' },
+            where: {
+                userId: session.user.id,
+            },
+                include: {
+                store: true,
+            },
+                skip: skipPage,
+                take: limit,
+            });
+    
+        return NextResponse.json({
+            data: likes,
+            page: page,
+            totalPage: Math.ceil(count / limit),
+            status: 200,
+        });
+    
+    } catch (error) {
+        return NextResponse.json(error, { status: 500 });
+    }
+    };
 

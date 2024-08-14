@@ -11,6 +11,7 @@ import SearchFilter from "./SearchFilter";
 import {useRecoilValue} from "recoil";
 import {searchState} from "../atom"
 import { useRouter } from 'next/navigation';
+import StoreListSub from './StoreListSub';
 
 
 
@@ -82,42 +83,15 @@ const StoreList = () => {
       <SearchFilter/>
       <ul>
         {data?.pages.map((store, index) => (
-          store?.data.map((item: StoreType, ) => {
+          store?.data.map((store: StoreType, i: number ) => {
             return(
-              <li key={`list${item.id}`} className='flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-50' onClick={() => router.push(`/stores/${item.id}`)}>
-                  <div className='flex gap-x-4'>
-                    <Image 
-                      src={item?.category? `/images/markers/${item?.category}.png`: "/images/markers/default.png"} 
-                      width={48} 
-                      height={48} 
-                      alt='아이콘 이미지'>
-                    </Image>  
-                    <div>
-                      <div className='text-sm font-semibold leading-6 text-gray-900'>
-                        {item?.name}
-                      </div>
-                      <div className='mt-1 text-xs truncate font-semibold leading-5 text-gray-500'>
-                        {item?.storeType}
-                      </div>
-                    </div>
-                  </div> 
-                  <div className='hidden sm:flex sm:flex-col sm:items-end'>
-                     <div className='text-sm font-semibold leading-6 text-gray-900'>
-                        {item?.address}
-                      </div>
-                      <div className='mt-1 text-xs truncate font-semibold leading-5 text-gray-500'>
-                        {item?.phone || "번호 정보 없음"} | &nbsp;
-                        { item?.foodCertifyName} | &nbsp;
-                        { item?.category}
-                      </div>
-                  </div>
-              </li>
+              <StoreListSub store={store} i={i}/>
           )
           }) 
         ))}
-    </ul>
-    {isFetching && hasNextPage && <Loading />}
-    <div className='w-full touch-none h-10 mb-1' ref={ref} />
+      </ul>
+      {isFetching && hasNextPage && <Loading />}
+      <div className='w-full touch-none h-10 mb-1' ref={ref} />
 
     
      {/* <div className='py-6 w-full px-10 flex justify-center flex-wrap gap-4 bg-white my-10 text-black'>
@@ -155,7 +129,6 @@ const StoreList = () => {
           </>
           
         )
-           
         }
      </div> */}
     </>

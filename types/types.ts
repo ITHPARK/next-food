@@ -22,13 +22,9 @@ export interface LikeInterface {
 }
 
 export interface LikeApiResponse {
-  id: number;
-  storeId: number,
-  userId: number,
-  store?: StoreType,
-  body: string,
-  user?: UserType;
-  createAt: Date;
+  data: LikeInterface[];
+  totalPage?: number;
+  page?: number
 }
 
 interface UserType {
@@ -84,4 +80,47 @@ export interface AddressProps {
 
 export interface LikeProps {
   storeId: number;
+}
+
+export interface StoreListProps {
+  store: StoreType;
+  i: number;
+}
+
+export interface Pagiantion {
+  total?: number;
+  page: string;
+  pathname: string;
+}
+
+export interface CommentProps {
+  storeId: number;
+}
+
+export interface CommentInterface {
+  id:number;
+  storeId: number;
+  userId: number;
+  store?: StoreType;
+  body: string;
+  user?: UserType;
+  createdAt: Date;
+}
+
+interface UserType {
+  id: number;
+  email: string;
+  name?: string | null;
+  image?: string | null;
+}
+
+export interface CommnetApiResponse {
+  data: CommentInterface[];
+  totalPage?: number;
+  page?: number;
+}
+
+export interface CommnetListProps {
+  comments?: CommnetApiResponse;
+  displayStore?: boolean;
 }

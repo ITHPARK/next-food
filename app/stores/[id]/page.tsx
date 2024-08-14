@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useRouter} from "next/navigation"
 import Like from "../../../components/Like";
+import Comments from "../../../components/comments/Comments";
 
 
 const fetchStore = async (id: string) => {
@@ -133,11 +134,16 @@ const StorePage = () => {
       {/* map area */}
       {
         isSuccess &&
-        <div className='overflow-hidden w-full mb-20 max-w-5xl mx-auto max-h-[600px]'>
-          <Map lat={data?.lat} lng={data?.lng} zoom={1}/>
-          <Marker store={data}/>
-        </div>
-        
+
+        <>
+          <div className='overflow-hidden w-full mb-20 max-w-5xl mx-auto max-h-[600px]'>
+            <Map lat={data?.lat} lng={data?.lng} zoom={1}/>
+            <Marker store={data}/>
+          </div>
+          <Comments
+            storeId ={data.id}
+          />
+        </>
       }
       
     </>

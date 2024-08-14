@@ -1,10 +1,9 @@
 "use client"
 
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Map from "./Map";
 import Markers from "./Markers";
 import StoreBox from "./StoreBox";
-import { StoreType } from '../types/types';
 import axios from "axios";
 import { useQuery } from '@tanstack/react-query';
 import Loading from "./Loading";
@@ -30,18 +29,6 @@ const MapMarkerCmp = () => {
       queryKey: ["stores"],
       queryFn: fetchStores,
     });
-
-    // const storeDatas = stores.map(item => ({
-    //     id: id || '',  // tel_no가 null이면 빈 문자열로 설정
-    //     cob_code_nm: item.cob_code_nm,
-    //     bizcnd_code_nm: item.bizcnd_code_nm,
-    //     upso_nm: item.upso_nm,
-    //     x_cnts: item.x_cnts,
-    //     y_dnts: item.y_dnts,
-    //     rdn_code_nm: item.rdn_code_nm,
-    //     crtfc_gbn_nm: item.crtfc_gbn_nm,
-    // }));
-
 
   if (isLoading) return <Loading/>;
   if (isError) return <div className='w-full h-screen mx-auto pt-[30%] text-red-500 text-center font-semibold'>다시 시도해주세요</div>;

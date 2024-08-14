@@ -13,7 +13,7 @@ import {toast} from "react-toastify";
 const Like = ({storeId}: LikeProps) => {
 
         const stringStoreId = storeId.toString();
-        const {data: session} = useSession(); 
+        const {data: session, status} = useSession(); 
 
 
         const fetchStore = async (id: string) => {
@@ -53,6 +53,8 @@ const Like = ({storeId}: LikeProps) => {
             }catch (error){
                 console.log(error);
             }
+        }else if (status === "unauthenticated") {
+            toast.warn("로그인 후 이용해 주세요")
         }
     }
 
@@ -62,7 +64,7 @@ const Like = ({storeId}: LikeProps) => {
             <button type='button' onClick={toggleLike}>
                 {/* 로그인 한 사용자가 좋아요를 눌렀을 때 */}
                 {
-                    data?.likes?.length ? (
+                    status === "authenticated" && data?.likes?.length ? (
                         
                         <AiFillHeart className='hover:text-red-600 focus:-red-600 text-red-500'/>
                     ) :

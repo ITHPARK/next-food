@@ -58,7 +58,6 @@ export async function GET(req: NextRequest) {
             const pageSize = 10;  // 페이지당 항목 수
             const pageNum = parseInt(page, 10); //string 문자열을 10진 정수로 변환
             const count = await prisma.store.count();
-
             const stores = await prisma.store.findMany({
                 orderBy: {id: "asc"}, //id 순서대로 정렬
                 where: {
