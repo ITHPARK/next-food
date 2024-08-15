@@ -27,7 +27,7 @@ export default function Layout({ children }: LayoutProps) {
               <Navbar />
               <div className="pt-[52px]">
                 {children}
-                <ToastContainer/>
+                <ToastContainer autoClose={1000} pauseOnFocusLoss={false} pauseOnHover={false}/>
               </div>
             </AuthProvider>
           </QueryProvider>

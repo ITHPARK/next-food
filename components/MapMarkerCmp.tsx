@@ -7,6 +7,8 @@ import StoreBox from "./StoreBox";
 import axios from "axios";
 import { useQuery } from '@tanstack/react-query';
 import Loading from "./Loading";
+import CurrentLocation from "./CurrentLocation";
+
 
 //컴포넌트가 생성 될때 마다 함수가 새로 생성되는걸 방지해서 밖에 작성
 const fetchStores = async () => {
@@ -39,6 +41,7 @@ const MapMarkerCmp = () => {
         <Map/>
         <Markers storeDatas={stores} setcurrentStore={setcurrentStore}/>
         <StoreBox/>
+        <CurrentLocation/>
     </div>
   )
 }

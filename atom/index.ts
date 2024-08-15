@@ -8,11 +8,11 @@ const DEFAULT_ZOOM = 3;
 
 
 
-export const mapState = atom({
+export const mapState = atom<any>({
     key: 'mapState',
     default: null,
     dangerouslyAllowMutability: true,
-  });
+});
 
 export const currentStoreState = atom<StoreType | null>({
     key: "store",
