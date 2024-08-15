@@ -85,7 +85,7 @@ const StoreList = () => {
         {data?.pages.map((store, index) => (
           store?.data.map((store: StoreType, i: number ) => {
             return(
-              <StoreListSub store={store} i={i}/>
+              <StoreListSub store={store} i={i} key={i}/>
           )
           }) 
         ))}
