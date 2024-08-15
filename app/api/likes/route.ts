@@ -6,6 +6,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import {getServerSession} from "next-auth";
 import {authOptions} from "../auth/[...nextauth]/route";
 
+
 //데이터가 프로젝트에 json 파일로 있을 때 
 // export async function GET() {
 
