@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, {Suspense} from 'react'
 import { CommentProps } from '../../types/types'
 import {useSession} from "next-auth/react";
 import CommentForm from './CommentForm';
@@ -10,11 +10,12 @@ import {CommnetApiResponse} from "../../types/types";
 import { useSearchParams } from 'next/navigation';
 import CommentList from "./CommentList";
 import Pagination from "../Pagination";
+import Loading from "../Loading";
 
 
 
 
-const Comments = ({storeId}: CommentProps) => {
+const CommentsContent = ({storeId}: CommentProps) => {
   const {status, data: session} = useSession();
 
   // URL 쿼리 파라미터 접근
@@ -40,6 +41,14 @@ const Comments = ({storeId}: CommentProps) => {
       <Pagination total={comments?.totalPage} page={page} pathname={`/stores/${storeId}`}/>
       
     </div>
+  )
+}
+
+const Comments =({storeId}: CommentProps) => {
+  return (
+    <Suspense fallback={<Loading/>}> 
+      <CommentsContent storeId={storeId} />
+    </Suspense>
   )
 }
 

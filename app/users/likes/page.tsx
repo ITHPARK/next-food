@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { Suspense } from 'react';
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import { LikeApiResponse, LikeInterface } from '../../../types/types';
@@ -10,7 +10,7 @@ import Pagination from "../../../components/Pagination";
 import { useSearchParams } from 'next/navigation';
 
 
-const LikesPage = () => {
+const LikesPageContent = () => {
 
   //페이지 url에서 쿼리번호를 추출
   const  searchParams  = useSearchParams();
@@ -57,6 +57,15 @@ const LikesPage = () => {
       {/* <div className='w-full touch-none h-10 mb-1' ref={ref} /> */}
     </div>
   )
+}
+
+const LikesPage = () => {
+  return (
+    // useSearchParams로 쿼리를 받아 데이터를 처리할 때 suspense를 사용함으로써 비동기 작업이 완료될 때 까지 fallback을 노출
+    <Suspense fallback={<Loading/>}> 
+      <LikesPageContent />
+    </Suspense>
+  );
 }
 
 export default LikesPage

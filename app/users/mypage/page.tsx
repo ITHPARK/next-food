@@ -1,15 +1,17 @@
 "use client"
 
 import {useSession, signOut} from "next-auth/react"
-import React from 'react'
+import React, { Suspense } from 'react'
 import axios from "axios";
 import {useQuery} from "@tanstack/react-query";
 import {CommnetApiResponse} from "../../../types/types";
 import { useSearchParams } from 'next/navigation';
 import CommentList from "../../../components/comments/CommentList"
 import Pagination from "../../../components/Pagination";
+import Loading from "../../../components/Loading";
 
-const MyPage = () => {
+
+const MyPageContent = () => {
 
   const { data:session } = useSession();
 
@@ -64,6 +66,14 @@ const MyPage = () => {
       <CommentList comments={comments} displayStore={true} refetch={refetch} />
       <Pagination total={comments?.totalPage} page={page} pathname="/users/mypage"/>
     </div>
+  )
+}
+
+const MyPage =() => {
+  return (
+    <Suspense fallback={<Loading/>}>
+      <MyPageContent/>
+    </Suspense>  
   )
 }
 
