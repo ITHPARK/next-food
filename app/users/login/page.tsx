@@ -42,7 +42,7 @@ const LoginPage = () => {
             onClick={() => signIn("naver", {callbackUrl: "/"}) }
           >
             <SiNaver  className='w-4 h-4'/>
-            Sign in whit Google
+            Sign in whit Naver
           </button>
           <button 
             type="button" 
@@ -50,7 +50,7 @@ const LoginPage = () => {
             onClick={() => signIn("kakao", {callbackUrl: "/"})}
           >
             <RiKakaoTalkFill  className='w-6 h-6'/>
-            Sign in whit Google
+            Sign in whit Kakao
           </button>
         </div>
       </div>
