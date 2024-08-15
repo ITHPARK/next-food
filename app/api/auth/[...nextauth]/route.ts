@@ -6,7 +6,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from "../../../../db";
 
 
-export const authOptions: NextAuthOptions = ({
+export const authOptions = {
     session: {
         strategy: "jwt",
         maxAge: 60 * 60 * 24, //초단위로 24시간 유지
@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = ({
         return token;
         },
     },
-});
+};
 
 const handler = NextAuth(authOptions);
 
