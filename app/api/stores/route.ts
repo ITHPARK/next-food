@@ -17,7 +17,7 @@ import { StoreType } from '../../../types/types';
 import axios from "axios";
 
 import {getServerSession} from "next-auth";
-import {authOptions} from "../auth/authOptions";
+import {authOptions} from "../auth/[...nextauth]/route";
 
 //데이터가 프로젝트에 json 파일로 있을 때 
 // export async function GET() {
