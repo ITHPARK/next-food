@@ -5,6 +5,9 @@ import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from "../../../../db";
+import { Adapter } from 'next-auth/adapters';
+
+const adapterPrisma : Adapter = PrismaAdapter(prisma)  ;
 
 
 export const authOptions: NextAuthOptions = {
@@ -27,7 +30,7 @@ export const authOptions: NextAuthOptions = {
         clientSecret: process.env.KAKAO_CLIENT_SECRET || ""
         })
     ],
-    adapter: PrismaAdapter(prisma), //NextAuth가 prisma와 상호작용을 위한 설정
+    adapter: adapterPrisma, //NextAuth가 prisma와 상호작용을 위한 설정
     secret: process.env.NEXTAUTH_SECRET, //세션 및 토큰 암호화를 위해 사용된다
     pages: {
         signIn: "/users/login",
