@@ -755,7 +755,7 @@ const MapMarkerCmp = () => {
 
 export default MapMarkerCmp
 ```
-#### Map.tsx
+#### Map.tsx (카카오 지도 노출 컴포넌트)
 ```
 /*global kakao */
 "use client";
@@ -819,7 +819,7 @@ export default Map;
 
 
 
-#### Markers.tsx
+#### Markers.tsx (맛집 지도 마커 컴포넌트)
 
 ```
 "use client"
