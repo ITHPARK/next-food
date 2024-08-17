@@ -4,7 +4,7 @@ import { LayoutProps } from "../types/types"
 import QueryProvider from "./utils/QueryProvider";
 import AuthProvider from "./utils/AuthProvider"
 import RecoilProvider from "./utils/RecoilProvider"
-
+import GoogleAnalytics from "./googleAnalytics";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -27,6 +27,7 @@ export default function Layout({ children }: LayoutProps) {
               <Navbar />
               <div className="pt-[52px]">
                 {children}
+                <GoogleAnalytics GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_ID} />
                 <ToastContainer autoClose={1000} pauseOnFocusLoss={false} pauseOnHover={false}/>
               </div>
             </AuthProvider>

@@ -109,13 +109,15 @@
       }
     ]
   },
+  "types": ["@types/gtag.js"],
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "types/next-third-parties.d.ts"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }
