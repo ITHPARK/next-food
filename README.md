@@ -144,7 +144,7 @@ model Comment {
 
 <span>클라이언트 측 CRUD Route 구현</span>
 [목록으로](#3-주요-구현-목록)
-#### auth/comments.ts
+#### auth/comments.ts (댓글 기능 구현 댓글 생성, 삭제, 가져오기 및 페이징 구현 )
 ```
 import prisma from "../../../db";
 
@@ -254,7 +254,7 @@ export const GET = async(req: NextRequest) => {
     }
 }
 ```
-#### likes/route.ts
+#### likes/route.ts (찜하기 기능 구현)
 ```
 import prisma from "../../../db";
 
@@ -386,7 +386,7 @@ export const GET = async (req: NextRequest) => {
     }
     };
 ```
-#### stores/route.ts
+#### stores/route.ts (가게 리스트 생성, 수정, 삭제 구현)
 ```
 // app/api/stores/route.ts
 
