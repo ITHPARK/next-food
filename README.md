@@ -142,7 +142,7 @@ model Comment {
 ```
 </br>
 
-<span>클라이언트 측 CRUD Route 구현</span>
+### 클라이언트 측 CRUD Route 구현
 [목록으로](#3-주요-구현-목록)
 #### auth/comments.ts (댓글 기능 구현 댓글 생성, 삭제, 가져오기 및 페이징 구현 )
 ```
@@ -569,7 +569,7 @@ export const DELETE = async(req: NextRequest) => { //데이터 삭제
     }
 }
 ```
-<span>NextAuth으로 로그인 구현</span>
+### NextAuth으로 로그인 구현
 [목록으로](#3-주요-구현-목록)
 #### auth/options.ts 
 ```
@@ -701,7 +701,7 @@ const LoginPage = () => {
 
 export default LoginPage
 ```
-<span>카카오지도API로 식당 위치 구현</span>
+### 카카오지도API로 식당 위치 구현
 [목록으로](#3-주요-구현-목록)
 #### MapMarkerCmp.tsx
 ```
