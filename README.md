@@ -36,7 +36,7 @@
 
 ## 4. 주요 소스코드
 
-### Prisma 스키마 구성 
+### <a name="주요-구현"></a>Prisma 스키마 구성 
 ```
 generator client {
   provider = "prisma-client-js"
