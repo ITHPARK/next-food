@@ -214,7 +214,6 @@ export const GET = async(req: NextRequest) => {
         const storeId: number = parseInt(req.nextUrl.searchParams.get('storeId') || '0', 10);
         const user: boolean = req.nextUrl.searchParams.get('user') === 'true' || false;
 
-
         const skipPage = parseInt(page) - 1;
         const session = await getServerSession(authOptions);
 
@@ -910,6 +909,288 @@ const Makers = ({ storeDatas = []}: MarkersProps) => { // 기본값 빈 배열 �
 }
 
 export default Makers
+```
+### 식당 리스트와 식당 이름 검색과 지역별 필터 적용 구현 (Recoil 상태 값으로 React Query 쿼리키로 데이터 페칭)
+[목록으로](#3-주요-구현-목록)
+
+#### StoreList.tsx
+```
+"use client"
+
+import React , { useEffect, useRef} from 'react'
+import axios from "axios";
+import { useInfiniteQuery } from '@tanstack/react-query';
+import {StoreType} from '../types/types';
+import Loading from '../components/Loading'
+import useIntersectionObserver from "../hooks/useIntersectionObserver";
+import SearchFilter from "./SearchFilter";
+import {useRecoilValue} from "recoil";
+import {searchState} from "../atom"
+import { useRouter } from 'next/navigation';
+import StoreListSub from './StoreListSub';
+
+
+
+
+const StoreList = () => {
+
+    // const [storeData, setStoreData] = useState<StoreType[]>([]);
+    // const [pagenation, setPagenation] = useState<number[]>([]);
+
+
+    // 페이지 파라미터를 useMemo로 메모이제이션
+    const ref = useRef<HTMLDivElement | null>(null);
+    const pageRef = useIntersectionObserver(ref, {});
+    const isPageEnd = !!pageRef?.isIntersecting;
+    const router = useRouter();
+    const searchvalue = useRecoilValue(searchState);
+
+
+
+
+    const searchParam ={
+      q: searchvalue?.q,
+      district: searchvalue?.district
+    }
+
+
+    const fetchData = async ({pageParam = 1}) => {
+      const {data} = await axios.get(`/api/stores?page=` + pageParam, {
+        params: {
+          limit: 10,
+          page: pageParam, //요청할 페이지 번호
+          ...searchParam//데이터 객체와 병합
+        }
+      });
+    
+      return data;
+    }
+
+    const {data, isFetching, fetchNextPage, isFetchingNextPage, hasNextPage} = useInfiniteQuery({
+      queryKey: ['stores', searchParam ], //쿼리를 고유하게 식별하는 키. searchParam가 변경 될 때마다 쿼리 다시 실행 
+      queryFn: fetchData, //데이터를 가져오는 함수
+      initialPageParam: 1, //initialPageParam: 첫 페이지의 초기 파라미터를 설정
+      getNextPageParam: (lastPage: any) => { //lastPage에서 다음 페이지 파라미터를 계산
+        return lastPage && lastPage.data && lastPage.data.length > 0 ? lastPage.page + 1 : undefined;
+      },
+    });
+
+
+    //페이지의 끝에 도달하면 fetchNextPage를 호출
+    useEffect(() => {
+      if (isPageEnd) {
+        fetchNextPage();
+      }
+    }, [fetchNextPage, isPageEnd]);  
+
+  return (
+    <>
+      <SearchFilter/>
+      <ul>
+        {data?.pages.map((store, index) => (
+          store?.data.map((store: StoreType, i: number ) => {
+            return(
+              <StoreListSub store={store} i={i} key={i}/>
+          )
+          }) 
+        ))}
+      </ul>
+      {isFetching && hasNextPage && <Loading />}
+      <div className='w-full touch-none h-10 mb-1' ref={ref} />
+    </>
+    
+  )
+}
+
+export default StoreList
+```
+#### SearchFilter.tsx
+```
+"use client"
+
+import React from 'react'
+import { AiOutlineSearch } from "react-icons/ai";
+import { DISTRICT_ARR } from '../data/store';
+import { searchState } from '../atom';
+import {useRecoilState} from "recoil"
+
+
+const SearchFilter = () => {
+
+    const [search, setSearch] = useRecoilState(searchState);
+
+  return (
+    <div className='flex flex-col md:flex-row gap-2 my-4'>
+        <div className='flex items-center justify-center gap-2 w-full'>
+        <AiOutlineSearch className='w-6 h-6' />
+        <input 
+            type="search" 
+            onChange={(e) => setSearch({...search, q: e.target.value})}
+            placeholder="음식점 검색" 
+            className='block w-full p-3 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  outline-none'
+        />
+        </div>
+        <select onChange={(e) => setSearch({...search, q: e.target.value})} className='bg-gray-50 border border-gray-300 text-gray-800 text-sm md:max-w-[200px] rounded-lg focus:border-blue-500 block w-full p-3 outline-none'>
+            <option>지역 선택</option>
+
+            {
+                DISTRICT_ARR.map((data)=> {
+                    return <option value={data} key={data}>{data}</option>
+                })
+            }
+        </select>
+    </div>
+  )
+}
+
+export default SearchFilter
+```
+### 
+[목록으로](#3-주요-구현-목록)
+#### CommentForm.tsx (textarea값을 post 요청으로 데이터베이스에 추가)
+```
+import React from 'react'
+import { CommentProps } from '../../types/types'
+import {useForm} from "react-hook-form";
+import axios from "axios";
+import {useSession} from "next-auth/react";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+const CommentForm = ({storeId, refetch}: CommentProps & { refetch: () => void }) => {
+
+    const {status} = useSession();
+    const { register, handleSubmit, resetField, formState:{errors} } = useForm();
+
+
+    return (
+        <form onSubmit={handleSubmit(async (data) => {
+
+            const result = await axios.post("/api/comments", {
+            ...data,
+            storeId,
+            })
+            
+            if(result.status === 200) {
+            toast.success("댓글을 등록했습니다.");
+            resetField("body") //바디값을 리셋시킨다.
+            refetch();
+            }else {
+            toast.error("다시 시도해주세요");
+            }
+
+        })}
+            className='flex flex-col space-y-4'
+        >
+            {errors?.body?.type === "required" && (
+            <div className='text-xs text-red-600'>필수 입력사항입니다</div>
+            )}
+            <textarea 
+            {...register('body', { required: true })}
+            rows={3} 
+            placeholder='댓글을 작성해주세요...'
+            className='block w-full min-h-[120px] resize-none border rounded-md bg-transparent py-2.5 px-4 text-black placeholder:text-gray-400 text-sm leading-6'
+            />
+            <button type='submit' className='bg-blue-600 hober:bg=blue-500 text-white px-4 py-2 text-sm fonst-semibold shadow-sm float-right mt-2 rounded-md'>작성하기</button>
+        </form>
+    )
+    }
+
+export default CommentForm
+```
+#### CommentList.tsx (GET 요청으로 댓글 데이터를 가져와 리스트업)
+```
+import React from 'react'
+import {useSession} from "next-auth/react";
+import {CommnetListProps} from "../../types/types"
+import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Link from "next/link";
+
+
+const CommentList = ({ comments, displayStore, refetch }: CommnetListProps & { refetch: () => void }) => {
+
+    const {data: session} = useSession();
+
+    const handleDeleteComment = async(id: number) => {
+        const confirm = window.confirm("해당 댓글을 삭제하시겠습니까?");
+
+        if(confirm) {
+            try {
+                const result = await axios.delete(`/api/comments?id=${id}`);
+
+                if(result.status === 200) {
+                    toast.success('댓글을 삭제했습니다.');
+                    refetch(); // 댓글 삭제 후 데이터를 다시 가져옴
+                } else {
+                    toast.error("다시 시도해 주세요");
+                }
+            }catch (error){
+                toast.error("다시 시도해 주세요");
+            }
+        }
+    }
+
+    
+    return (
+            <div className='my-10'>
+            {
+            comments?.data && comments?.data?.length > 0 ? (
+                comments?.data.map((comment) => {
+                return (
+                    <div key={comment.id} className='flex items-center space-x-4 text-sm text-gray-500 mb-8 border-b border-gray-100 pb-8'>
+                    <div>
+                        <img 
+                        src={comment?.user?.image || '/images/markers/default.png'} 
+                        alt="프로필 이미지" 
+                        width={40}
+                        height={40}
+                        className='rounded-full bg-gray-10'  
+                        />
+                    </div>
+                    <div className='flex flex-col space-y-1 flex-1'>
+                        <div>{comment?.user?.name ?? "사용자"} | {comment?.user?.email}</div>
+                        <div className='text-xs'>{new Date(comment?.createdAt)?.toLocaleDateString()}</div>
+                        <div className='text-black mt-1 text-base'>{comment.body}</div>
+                        {displayStore && (
+                            <div className='mt-2'>
+                                <Link href={`/stores/${comment?.store?.id}`}
+                                    className='text-blue-700 hover:text-blue-600 underline font-medium'
+                                >
+                                    {comment?.store?.name}
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                    <div>
+                        {comment.userId === session?.user.id && (
+                        (
+                            <button type="button" className='underline text-gray-500 hover:text-gray-400'
+                                onClick={() => handleDeleteComment(comment.id)}
+                            >삭제</button>
+                        )
+                        )}
+                    </div>
+                    </div>
+                )
+                })
+            )
+            :
+            (
+                <div className='p-4 border border-gray-200 rounded-md text-sm text-gray-400 '>
+                댓글이 없습니다.
+                </div>
+            )
+            }
+        </div>
+    )
+    }
+
+export default CommentList
+
 ```
 
 
