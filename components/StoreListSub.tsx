@@ -31,7 +31,7 @@ const StoreListSub = ({store, i}: StoreListProps) => {
           <div className='text-sm font-semibold leading-6 text-gray-900'>
             {store?.address}
           </div>
-          <div className='mt-1 text-xs truncate font-semibold leading-5 text-gray-500'>
+          <div className='mt-1 flex justify-end text-xs truncate font-semibold leading-5 text-gray-500'>
             {store?.phone || "번호 정보 없음"} | &nbsp;
             { store?.foodCertifyName} | &nbsp;
             { store?.category}

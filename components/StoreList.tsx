@@ -28,14 +28,10 @@ const StoreList = () => {
     const router = useRouter();
     const searchvalue = useRecoilValue(searchState);
 
-
-
-
     const searchParam ={
       q: searchvalue?.q,
       district: searchvalue?.district
     }
-
 
     const fetchData = async ({pageParam = 1}) => {
       const {data} = await axios.get(`/api/stores?page=` + pageParam, {
@@ -74,7 +70,7 @@ const StoreList = () => {
           store?.data.map((store: StoreType, i: number ) => {
             return(
               <StoreListSub store={store} i={i} key={i}/>
-          )
+            )
           }) 
         ))}
       </ul>
