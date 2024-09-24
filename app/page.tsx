@@ -1,7 +1,6 @@
 
 import MapMarkerCmp from "../components/MapMarkerCmp";
-import { StoreType } from "../types/types";
-import axios from "axios";
+
 
 
 

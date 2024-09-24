@@ -8,7 +8,7 @@ import prisma from "../../../../db";
 
 export const authOptions: NextAuthOptions = {
     session: {
-        strategy: "jwt",
+        strategy: "jwt", 
         maxAge: 60 * 60 * 24, //초단위로 24시간 유지
         updateAge: 60 * 60 * 2, //초단위로 2시간 유지
     },

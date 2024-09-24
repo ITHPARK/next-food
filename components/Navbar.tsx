@@ -28,18 +28,22 @@ const Navbar = () => {
           <Link href="/users/likes" className="navbar__list--item" onClick={() => setIsOpen(false)}>
             찜한 가게
           </Link>
-          <Link href="/users/mypage" className="navbar__list--item" onClick={() => setIsOpen(false)}>
-            마이페이지
-          </Link>
+          
           {status === "authenticated" ? (
+            <>
+            <Link href="/users/mypage" className="navbar__list--item" onClick={() => setIsOpen(false)}>
+              마이페이지
+            </Link>
             <button type="button" 
-            onClick={() => {
+               onClick={() => {
               signOut() 
               setIsOpen(false)}
             }
             >
               로그아웃
             </button>
+            </>
+            
           ) : (
             <Link href="/api/auth/signin" className="navbar__list--item" onClick={() => setIsOpen(false)}>
               로그인
@@ -80,24 +84,27 @@ const Navbar = () => {
             >
               찜한 가게
             </Link>
-            <Link
-              href="/users/mypage"
-              className="navbar__list--item--mobile"
-              onClick={() => setIsOpen(false)}
-            >
-              마이페이지
-            </Link>
             {status === "authenticated" ? (
-              <button
-                type="button"
-                onClick={() => {
-                  signOut();
-                  setIsOpen(false);
-                }}
-                className="navbar__list--item--mobile text-left"
-              >
-                로그아웃
-              </button>
+              <>
+                <Link
+                  href="/users/mypage"
+                  className="navbar__list--item--mobile"
+                  onClick={() => setIsOpen(false)}
+                >
+                  마이페이지
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    signOut();
+                    setIsOpen(false);
+                  }}
+                  className="navbar__list--item--mobile text-left"
+                >
+                  로그아웃
+                </button>
+              </>
+              
             ) : (
               <Link
                 href="/api/auth/signin"

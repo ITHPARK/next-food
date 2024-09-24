@@ -1,10 +1,9 @@
 "use client"
 
-import React , {useState, useEffect, useMemo, useRef} from 'react'
+import React , { useEffect, useRef} from 'react'
 import axios from "axios";
 import { useInfiniteQuery } from '@tanstack/react-query';
 import {StoreType} from '../types/types';
-import Image from 'next/image';
 import Loading from '../components/Loading'
 import useIntersectionObserver from "../hooks/useIntersectionObserver";
 import SearchFilter from "./SearchFilter";
@@ -65,18 +64,7 @@ const StoreList = () => {
       if (isPageEnd) {
         fetchNextPage();
       }
-    }, [fetchNextPage, isPageEnd]);
-
-    // useEffect 훅을 사용하여 stores 데이터가 업데이트될 때 상태를 업데이트
-    // useEffect(() => {
-    //     // if (stores?.totalPage) {
-         
-    //     //   // 배열은 totalPage의 길이로 초기화 그리고 각 인스턴스의 index + 1 값을 넣어준다.
-    //     //   // setPagenation([...Array(stores.totalPage)].map((_, index) => index + 1)); 
-    //     // }
-    // }, [data]);
-
-
+    }, [fetchNextPage, isPageEnd]);  
 
   return (
     <>
@@ -92,45 +80,6 @@ const StoreList = () => {
       </ul>
       {isFetching && hasNextPage && <Loading />}
       <div className='w-full touch-none h-10 mb-1' ref={ref} />
-
-    
-     {/* <div className='py-6 w-full px-10 flex justify-center flex-wrap gap-4 bg-white my-10 text-black'>
-       {stores && stores.totalPage !== undefined && stores.totalPage <= 10 ? (
-          pagenation.map((item, index) => {
-            return(
-              <Link href={{pathname: "/stores", query: {page: index + 1}}} key={index}>
-                <span className={`px-3 py-2 rounded border shadow-sm bg-white ${item === parseInt(page, 10) ? " text-blue-600 font-bold" : "text-gray-300" }`}>{item}</span>
-              </Link>
-            )
-        })
-        )
-        :
-        (
-          <>
-            {
-              Number(page) > 1 ? 
-              <Link href={{pathname: "/stores", query: {page: Number(page) - 1}}}>
-                <span className="px-3 py-2 rounded border shadow-sm bg-white" >이전</span>
-              </Link>
-              :
-              ""
-            }
-            <Link href={{pathname: "/stores", query: {page: Number(page)}}}>
-              <span className="px-3 py-2 rounded border shadow-sm bg-white text-blue-600" >{page}</span>
-            </Link>
-
-            {
-              stores && stores.totalPage !== undefined && stores.totalPage > parseInt(page) &&
-              <Link href={{pathname: "/stores", query: {page: Number(page) + 1}}}>
-                <span className="px-3 py-2 rounded border shadow-sm bg-white" >다음</span>
-              </Link>
-            }
-            
-          </>
-          
-        )
-        }
-     </div> */}
     </>
     
   )
