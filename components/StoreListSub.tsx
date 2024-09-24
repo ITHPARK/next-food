@@ -28,7 +28,7 @@ const StoreListSub = ({store, i}: StoreListProps) => {
           </div>
         </div> 
         <div className='hidden sm:flex sm:flex-col sm:stores-end'>
-          <div className='text-sm font-semibold leading-6 text-gray-900'>
+          <div className='flex justify-end text-sm font-semibold leading-6 text-gray-900'>
             {store?.address}
           </div>
           <div className='mt-1 flex justify-end text-xs truncate font-semibold leading-5 text-gray-500'>
