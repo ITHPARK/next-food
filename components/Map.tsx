@@ -29,14 +29,10 @@ const Map = ({lat, lng, zoom}: MapProps) => {
         center: new window.kakao.maps.LatLng(lat ?? location.lat, lng ??  location.lng), // 지도 중심좌표
         level: zoom ?? location.zoom, // 지도의 확대 레벨
       }
-    
-      if (map) {
-        map.setCenter(mapOption.center);  // 기존 지도 객체가 있을 경우, 중심 좌표만 변경
-        map.setLevel(mapOption.level);    // 확대 레벨만 업데이트
-      } else {
-        const newMap = new window.kakao.maps.Map(mapContainer, mapOption);  // 새 지도 생성
-        setMap(newMap);  // 새로운 지도 객체를 Recoil state에 저장
-      }
+
+      const newMap = new window.kakao.maps.Map(mapContainer, mapOption);  // 새 지도 생성
+      setMap(newMap);  // 새로운 지도 객체를 Recoil state에 저장
+      
     });
   };
 
@@ -44,7 +40,7 @@ const Map = ({lat, lng, zoom}: MapProps) => {
     if (window.kakao && window.kakao.maps) {
       loadKakaoMap();
     }
-  }, [lat, lng, zoom]);
+  }, []);
 
   return (
     <div>

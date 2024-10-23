@@ -34,7 +34,7 @@ const StoreBox = ( ) => {
                                 <p className='text-sm'>{store?.storeType}</p>
                             </div>
                         </div>
-                        <button type='button' onClick={() => {closeStore}}><AiOutlineClose fill="#141414" size="20"/></button>
+                        <button type='button' onClick={closeStore}><AiOutlineClose fill="#141414" size="20"/></button>
                     </div>
                     <div className="mt-4 flex justify-between items-center gap-4">
                         <div className=" flex gap-2 items-center col-span-3">

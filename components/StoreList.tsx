@@ -17,15 +17,10 @@ import StoreListSub from './StoreListSub';
 
 const StoreList = () => {
 
-    // const [storeData, setStoreData] = useState<StoreType[]>([]);
-    // const [pagenation, setPagenation] = useState<number[]>([]);
-
-
     // 페이지 파라미터를 useMemo로 메모이제이션
     const ref = useRef<HTMLDivElement | null>(null);
     const pageRef = useIntersectionObserver(ref, {});
     const isPageEnd = !!pageRef?.isIntersecting;
-    const router = useRouter();
     const searchvalue = useRecoilValue(searchState);
 
     const searchParam ={
