@@ -4,9 +4,12 @@ import { LayoutProps } from "../types/types"
 import QueryProvider from "./utils/QueryProvider";
 import AuthProvider from "./utils/AuthProvider"
 import RecoilProvider from "./utils/RecoilProvider"
-import GoogleAnalytics from "./googleAnalytics";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import dynamic from 'next/dynamic';
+const GoogleAnalytics = dynamic(() => import('./googleAnalytics'), {
+  ssr: false,
+});
 
 
 

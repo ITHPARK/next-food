@@ -1,7 +1,7 @@
 "use client"
 
 // export default Navbarimport { useState } from "react";
-import React, {useState} from "react";
+import React, {useState, useCallback} from "react";
 import Link from "next/link";
 import { BiMenu } from "@react-icons/all-files/bi/BiMenu";
 import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
@@ -11,10 +11,14 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data, status } = useSession();
 
+  const toggleMenu = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
 
   return (
     <>
-      <div className="navbar">
+      <div className="navbar"> 
         <Link className="navbar__logo" href="/">
           nextmap
         </Link>
@@ -54,7 +58,7 @@ const Navbar = () => {
         <div
           role="presentation"
           className="navbar__button"
-          onClick={() => setIsOpen((val) => !val)}
+          onClick={toggleMenu}
         >
           {isOpen ? <AiOutlineClose /> : <BiMenu />}
         </div>
@@ -121,4 +125,5 @@ const Navbar = () => {
   );
 }
 
-export default Navbar;
+// React.memo로 Navbar 메모이제이션
+export default React.memo(Navbar);
