@@ -1,7 +1,8 @@
 "use client"
 
 import React from 'react'
-import { AiFillHeart, AiOutlineHeart  } from "react-icons/ai";
+import { AiFillHeart  } from "@react-icons/all-files/ai/AiFillHeart";
+import { AiOutlineHeart } from "@react-icons/all-files/ai/AiOutlineHeart";
 import {StoreType} from "../types/types"
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";

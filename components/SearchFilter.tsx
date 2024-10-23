@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch } from "@react-icons/all-files/ai/AiOutlineSearch";
 import { DISTRICT_ARR } from '../data/store';
 import { searchState } from '../atom';
 import {useRecoilState} from "recoil"

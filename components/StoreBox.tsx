@@ -2,13 +2,11 @@
 
 import React, {useEffect, useState} from 'react'
 import Image from "next/image";
-import {
-    AiOutlineClose,
-    AiOutlineInfoCircle,
-    AiOutlineCheck,
-    AiOutlinePhone,
-} from "react-icons/ai";
-import { HiOutlineMapPin } from "react-icons/hi2";
+import {AiOutlineClose} from "@react-icons/all-files/ai/AiOutlineClose";
+import {AiOutlineInfoCircle} from "@react-icons/all-files/ai/AiOutlineInfoCircle";
+import {AiOutlineCheck} from "@react-icons/all-files/ai/AiOutlineCheck";
+import {AiOutlinePhone} from "@react-icons/all-files/ai/AiOutlinePhone";
+import { FiMapPin } from "@react-icons/all-files/fi/FiMapPin";
 import { useRouter } from 'next/navigation';
 import {useRecoilState} from "recoil"
 import {currentStoreState} from '../atom'
@@ -38,7 +36,7 @@ const StoreBox = ( ) => {
                     </div>
                     <div className="mt-4 flex justify-between items-center gap-4">
                         <div className=" flex gap-2 items-center col-span-3">
-                            <HiOutlineMapPin />
+                            <FiMapPin />
                             {store?.address || "주소가 없습니다."}
                         </div>
                         <Like storeId={store.id} />

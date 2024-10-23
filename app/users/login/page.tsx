@@ -2,9 +2,9 @@
 
 import {useEffect} from "react";
 import React from 'react'
-import { AiOutlineGoogle } from "react-icons/ai";
-import { SiNaver } from "react-icons/si";
-import { RiKakaoTalkFill } from "react-icons/ri";
+import { AiOutlineGoogle } from "@react-icons/all-files/ai/AiOutlineGoogle";
+import { SiNaver } from "react-icons/si"; 
+import { RiKakaoTalkFill } from "@react-icons/all-files/ri/RiKakaoTalkFill";
 import {signIn, useSession} from "next-auth/react";
 import { useRouter } from 'next/navigation';
 
