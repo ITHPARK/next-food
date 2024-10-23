@@ -74,7 +74,7 @@ const Makers = ({ storeDatas = []}: MarkersProps) => { // 기본값 빈 배열 �
             });
         }
         //map, storeDatas, setcurrentStore 값이 변경될 때 새로운 콜백을 실행
-    },[map, storeDatas, setCurrentStore])
+    },[map, storeDatas, setCurrentStore, location, setLocation ])
 
     useEffect(() => {
         loadKakaoMarkers();

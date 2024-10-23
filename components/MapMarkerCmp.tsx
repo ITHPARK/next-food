@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import Map from "./Map";
 import Markers from "./Markers";
 import StoreBox from "./StoreBox";
@@ -24,13 +24,12 @@ const fetchStores = async () => {
 
 const MapMarkerCmp = () => {
 
-    const [map, setMap] = useState(null);
-    const [currentStore, setcurrentStore] = useState(null);
+  const [currentStore, setcurrentStore] = useState(null);
 
-    const { data: stores, isError, isLoading } = useQuery({
-      queryKey: ["stores"],
-      queryFn: fetchStores,
-    });
+  const { data: stores, isError, isLoading } = useQuery({
+    queryKey: ["stores"],
+    queryFn: fetchStores,
+  });
 
   if (isLoading) return <Loading/>;
   if (isError) return <div className='w-full h-screen mx-auto pt-[30%] text-red-500 text-center font-semibold'>다시 시도해주세요</div>;

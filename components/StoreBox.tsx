@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useState} from 'react'
+import React, {useCallback} from 'react'
 import Image from "next/image";
 import {AiOutlineClose} from "@react-icons/all-files/ai/AiOutlineClose";
 import {AiOutlineInfoCircle} from "@react-icons/all-files/ai/AiOutlineInfoCircle";
@@ -13,11 +13,13 @@ import {currentStoreState} from '../atom'
 import Like from "../components/Like";
 
 const StoreBox = ( ) => {
-
-    const [storeInfo, setSotreInfo] = useState();
     const router = useRouter();
 
     const [store, setStore] = useRecoilState(currentStoreState);
+
+    const closeStore = useCallback(() => {
+        setStore(null);
+      }, []);
 
   return (
     <div className='fixed transition ease-in-out delay-150 inset-x-0 mx-auto bottom-20 rounded-lg max-w-sm md:max-w-xl z-10 w-full bg-white'>
@@ -32,7 +34,7 @@ const StoreBox = ( ) => {
                                 <p className='text-sm'>{store?.storeType}</p>
                             </div>
                         </div>
-                        <button type='button' onClick={() => {setStore(null)}}><AiOutlineClose fill="#141414" size="20"/></button>
+                        <button type='button' onClick={() => {closeStore}}><AiOutlineClose fill="#141414" size="20"/></button>
                     </div>
                     <div className="mt-4 flex justify-between items-center gap-4">
                         <div className=" flex gap-2 items-center col-span-3">
