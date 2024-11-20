@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Pagiantion } from '../types/types'
 
 const Pagination = ({total = 0, page, pathname} : Pagiantion) => {
+
     
     return (
         <div className='py-6 w-full px-10 flex justify-center flex-wrap gap-4 bg-white my-10 text-black'>

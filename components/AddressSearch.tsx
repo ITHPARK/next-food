@@ -24,9 +24,9 @@ const AddressSearch = ({register, errors, setValue}: AddressProps) => {
             fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
         }
     
-            setValue("address", fullAddress);
-            setIsOpen(false);
-        };
+        setValue("address", fullAddress);
+        setIsOpen(false);
+    };
 
     return (
         <>
