@@ -16,7 +16,7 @@ const CurrentLocation = () => {
 
         setLoading(true);
 
-        //geolocation으로 현재위치 가져오기
+        //브라우저의 geolocation으로 사용자 현재위치 가져오기
         const options = {
             enableHighAccuracy: false, //정확도를 높이는 설정 true로 하면 시간이 오래걸릴수 있음
             timeout: 5000, //타임아웃 값
@@ -27,11 +27,12 @@ const CurrentLocation = () => {
             navigator.geolocation.getCurrentPosition(
                 (position) => { 
 
-                    //현재 위치를 가져온다.
+                    //geolocation로 가져온 위치값을 카카오맵에 적용 시킨다.
                     const currentPosition = new window.kakao.maps.LatLng (
                         position.coords.latitude,
                         position.coords.longitude
                     )
+
                     if(currentPosition) {
                         setLoading(false);
                         map.panTo(currentPosition); //Kakao Maps API에서 현재위치로 지도 이동
