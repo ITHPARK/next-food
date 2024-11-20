@@ -38,6 +38,8 @@ const StoreList = () => {
       district: searchvalue?.district
     }
 
+    console.log(searchParam)
+
     
 
     const {data, isFetching, fetchNextPage, isFetchingNextPage, hasNextPage} = useInfiniteQuery({
