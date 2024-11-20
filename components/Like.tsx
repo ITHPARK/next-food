@@ -39,7 +39,7 @@ const Like = ({storeId}: LikeProps) => {
                     const like = await axios.post("/api/likes", {
                         storeId: data.id,
                     });
-                    console.log(like);
+                    
                     if (like.data.status === 201) {
                         toast.success("가게를 찜했습니다.");
                     } else {

@@ -60,7 +60,6 @@ const StorePage = () => {
           toast.error("다시 시도해주세요.")
         }
       } catch (e) {
-        console.log(e)
         toast.error("다시 시도해주세요.")
       }
     }

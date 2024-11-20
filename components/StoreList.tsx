@@ -21,8 +21,6 @@ const fetchData = async ({pageParam = 1, searchDataParam }: any) => {
     }
   });
 
-  console.log(data)
-
   return data;
 }
 

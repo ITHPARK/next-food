@@ -11,8 +11,6 @@ const SearchFilter = () => {
 
     const [search, setSearch] = useRecoilState(searchState);
 
-    console.log(search)
-
   return (
     <div className='flex flex-col md:flex-row gap-2 my-4'>
         <div className='flex items-center justify-center gap-2 w-full'>
