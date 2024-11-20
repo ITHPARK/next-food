@@ -8,6 +8,7 @@ import {StoreListProps} from "../types/types";
 const StoreListSub = ({store, i}: StoreListProps) => {
 
   const router = useRouter();
+  console.log(store.id)
 
   return (
       <li key={`list${store.id}`} className='flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-50' onClick={() => router.push(`/stores/${store.id}`)}>

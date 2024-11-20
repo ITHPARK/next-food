@@ -2,6 +2,7 @@
 
 import React from 'react'
 import StoreList from "../../components/StoreList"
+import DeleteDuplicate from '../../components/DeleteDuplicate'
 
 
 
