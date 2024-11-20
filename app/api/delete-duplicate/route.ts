@@ -39,8 +39,11 @@ export const POST = async (req: NextRequest) => {
     // 중복 레코드 삭제 후 성공 메시지 반환
     return NextResponse.json({ message: 'Duplicate records deleted successfully', status: 200 });
 
-  } catch (error) {
-    // 에러 발생 시 오류 메시지 반환
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    // error가 Error 인스턴스인지 확인
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: '오류가 발생하였습니다.' }, { status: 500 });
   }
 };
