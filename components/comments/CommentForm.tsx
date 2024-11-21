@@ -42,7 +42,7 @@ const CommentForm = ({storeId, refetch}: CommentProps & { refetch: () => void })
             placeholder='댓글을 작성해주세요...'
             className='block w-full min-h-[120px] resize-none border rounded-md bg-transparent py-2.5 px-4 text-black placeholder:text-gray-400 text-sm leading-6'
             />
-            <button type='submit' className='bg-blue-600 hober:bg=blue-500 text-white px-4 py-2 text-sm fonst-semibold shadow-sm float-right mt-2 rounded-md'>작성하기</button>
+            <button type='submit' className='bg-orange hover:bg-orange-effect text-white px-4 py-2 text-sm fonst-semibold shadow-sm float-right mt-2 rounded-md'>작성하기</button>
         </form>
     )
     }

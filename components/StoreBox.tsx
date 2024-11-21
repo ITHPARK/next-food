@@ -56,7 +56,7 @@ const StoreBox = ( ) => {
                         {store?.category || "분류 없음"}
                     </div>
                 </div>
-                <button type='button' onClick={() => router.push(`/stores/${store.id}`)} className='w-full bg-blue-700 hover:bg-blue-500 focus:bg-blue-500 py-3 text-white font-semibold rounded-b-lg'>상세보기</button>
+                <button type='button' onClick={() => router.push(`/stores/${store.id}`)} className='w-full bg-orange hover:bg-orange-effect focus:bg-orange-effect py-3 text-white font-semibold rounded-b-lg'>상세보기</button>
             </>
         )}
     </div>

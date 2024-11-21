@@ -22,7 +22,7 @@ const LoginPage = () => {
   return (
     <div className=' flex flex-col justify-center px-6 lg:px-8 h-[60vh]'>
       <div className='mx-auto w-full max-w-sm'>
-        <h1 className='text-blue-800 text-center text-2xl font-semibold italic'>Nextmap</h1>
+        <h1 className='text-orange text-center text-2xl font-semibold italic'>FTMAP</h1>
         <div className='text-center mt-6 text-2xl font-bold text-gray-600'>SNS 계정으로 로그인해주세요</div>
         <p className='mt-2 text-center text-sm text-gray-600'>계정이 없다면 자동으로 회원가입이 진행됩니다.</p>
       </div>

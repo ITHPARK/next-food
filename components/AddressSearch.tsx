@@ -40,11 +40,11 @@ const AddressSearch = ({register, errors, setValue}: AddressProps) => {
                             readOnly
                             placeholder='주소를 검색해주세요'
                             {...register("address", {required: true})}
-                            className="col-span-2 block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            className="col-span-2 block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6"
                         />
                         <button type='button'
                             onClick={() => setIsOpen((val) => !val)}
-                            className='bg-blue-700 hover:bg-blue-600 py-1.5 px-2 rounded text-white'
+                            className='bg-orange hover:bg-orange-effect py-1.5 px-2 rounded text-white'
                         >
                             주소 검색
                         </button>

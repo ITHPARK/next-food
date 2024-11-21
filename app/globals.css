@@ -7,7 +7,7 @@
 }
 
 .navbar__logo {
-  @apply text-blue-800 text-lg font-semibold cursor-pointer px-[18px] py-0;
+  @apply text-[#FF4500] text-lg font-semibold cursor-pointer px-[18px] py-0 italic;
 }
 
 .navbar__list {
@@ -32,7 +32,7 @@
 
 @media only screen and (max-width: 600px) {
   .navbar--mobile {
-    @apply fixed w-full text-white h-screen top-[52px] bg-blue-800 z-[100];
+    @apply fixed w-full text-white h-screen top-[52px] bg-orange z-[100];
   }
 
   .navbar__list {
@@ -57,10 +57,12 @@
 }
 
 .infowindow {
-  @apply bg-blue-900 text-white block text-sm text-center h-6 rounded-sm px-2 leading-6;
+  @apply bg-orange text-white block text-sm text-center h-6 rounded-sm px-2 leading-6;
 }
 
-.animate-spin {animation: spin 1s linear infinite;}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
 
 @keyframes spin {
   from {

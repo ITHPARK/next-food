@@ -56,7 +56,7 @@ const CurrentLocation = () => {
             <button 
                 type='button' 
                 onClick={handleCurrent} 
-                className='fixed z-10 p-2 shadow right-10 bottom-20 bg-white rounded-md hover:shadow-lg focus:shadow hover:bg-blue-200'
+                className='fixed z-10 p-2 shadow right-10 bottom-20 bg-white rounded-md hover:shadow-lg focus:shadow hover:bg-orange'
             >
                 <MdMyLocation className='w-5- h-5'/>
             </button>

@@ -133,7 +133,7 @@ const StoreEditPage = ({ params }: { params: { id: string } }) => {
               <div className="mt-2">
                 <input
                   {...register("phone", {required: true})}
-                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6"
                 />
                 {errors?.phone?.type === 'required' && (
                   <div className="pt-2 text-xs text-red-600">
@@ -153,7 +153,7 @@ const StoreEditPage = ({ params }: { params: { id: string } }) => {
               <div className="mt-2">
                 <select
                   {...register("foodCertifyName", {required: true})}
-                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6">
                   <option value="">식품인증구분 선택</option>
                   {FOOD_CERTIFY_ARR?.map(data => <option key={data} value={data}>{data}</option>)}
                 </select>
@@ -172,7 +172,7 @@ const StoreEditPage = ({ params }: { params: { id: string } }) => {
               <div className="mt-2">
                 <select
                   {...register("storeType", {required: true})}
-                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6">
                   
                   {data?.category ? (<option value="업종구분 없음" selected>업종구분 없음</option>) :
                   <>
@@ -200,7 +200,7 @@ const StoreEditPage = ({ params }: { params: { id: string } }) => {
         </button>
         <button
           type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="rounded-md bg-orange px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-effect focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-effect"
         >
           수정하기
         </button>

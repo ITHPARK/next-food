@@ -20,7 +20,7 @@ const Navbar = () => {
     <>
       <div className="navbar"> 
         <Link className="navbar__logo" href="/">
-          nextmap
+          FTMAP
         </Link>
         <div className="navbar__list">
           <Link href="/stores" className="navbar__list--item" onClick={() => setIsOpen(false)}>

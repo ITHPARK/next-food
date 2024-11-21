@@ -56,7 +56,7 @@ const StoreNewPage = () => {
                   type="text"
                   {...register("name", {required: true})}
                   placeholder="가게명 입력"
-                  className="block w-full rounded-md border-0 p-1.5  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 p-1.5  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6  outline-none"
                 />
                 {errors?.name?.type === 'required' && (
                   <div className="pt-2 text-xs text-red-600">
@@ -71,7 +71,7 @@ const StoreNewPage = () => {
                 카테고리
               </label>
               <div className="mt-2">
-                <select {...register("category", {required: true})} className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <select {...register("category", {required: true})} className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6">
                   <option value="">카테고리 선택</option>
                   {
                     CATEGORY_ARR?.map( category => 
@@ -93,7 +93,7 @@ const StoreNewPage = () => {
               <div className="mt-2">
                 <input
                   {...register("phone", {required: true})}
-                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6 outline-none"
                 />
                 {errors?.phone?.type === 'required' && (
                   <div className="pt-2 text-xs text-red-600">
@@ -113,7 +113,7 @@ const StoreNewPage = () => {
               <div className="mt-2">
                 <select
                   {...register("foodCertifyName", {required: true})}
-                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6">
                   <option value="">식품인증구분 선택</option>
                   {FOOD_CERTIFY_ARR?.map(data => <option key={data} value={data}>{data}</option>)}
                 </select>
@@ -132,7 +132,7 @@ const StoreNewPage = () => {
               <div className="mt-2">
                 <select
                   {...register("storeType", {required: true})}
-                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-effect sm:text-sm sm:leading-6">
                   <option value="">식품인증구분 선택</option>
                   {STORE_TYPE_ARR?.map(data => <option key={data} value={data}>{data}</option>)}
                 </select>
@@ -155,7 +155,7 @@ const StoreNewPage = () => {
         </button>
         <button
           type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="rounded-md bg-orange px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-effect focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-effect"
         >
           제출하기
         </button>
